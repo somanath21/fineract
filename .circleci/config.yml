@@ -29,7 +29,7 @@ jobs:
             fi
 
             # Build and tag the Docker image
-            ./gradlew :fineract-provider:jibDockerBuild
+            ./gradlew bootJar
             docker build -t "openmf/apache-fineracts:$IMAGE_TAG" .
 
             # Push the Docker image to Docker Hub
