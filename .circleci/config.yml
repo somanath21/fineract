@@ -29,12 +29,12 @@ jobs:
             fi
 
             # Build and tag the Docker image
-            ./gradlew bootJar
-            docker build -t "openmf/apache-fineracts:$IMAGE_TAG" .
+            ./gradlew :fineract-provider:jibDockerBuild
+            docker build -t "openmf/apache-fineract:$IMAGE_TAG" .
 
             # Push the Docker image to Docker Hub
             docker login -u "$DOCKERHUB_USERNAME" -p "$DOCKERHUB_PASSWORD"
-            docker push "openmf/apache-fineracts:$IMAGE_TAG"
+            docker push "openmf/apache-fineract:$IMAGE_TAG"
 
           # when: always  # The job will be executed even if there's no match for the tag filter
   
@@ -54,8 +54,8 @@ jobs:
       - run:
           name: Build Docker image
           command: |
-            ./gradlew bootJar
-            docker build -t openmf/apache-fineracts:latest .
+            ./gradlew :fineract-provider:jibDockerBuild
+            docker build -t openmf/apache-fineract:latest .
 
       # Log in to DockerHub using environment variables
       - run:
@@ -65,7 +65,7 @@ jobs:
       # Push the Docker image to DockerHub
       - run:
           name: Push Docker image to DockerHub
-          command: docker push openmf/apache-fineracts:latest   
+          command: docker push openmf/apache-fineract:latest   
 
   
 workflows:
